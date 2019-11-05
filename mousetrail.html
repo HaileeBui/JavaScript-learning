@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Mousetrail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shink-to-fit=no">
+</head>
+
+<body>
+    <style>
+        .trail {
+            /* className for the trail elements */
+            position: absolute;
+            height: 6px;
+            width: 6px;
+            border-radius: 3px;
+            background: teal;
+        }
+
+        body {
+            height: 300px;
+        }
+    </style>
+
+    <script>
+        'use strict';
+        const divArray = [];  //create array to store dots
+        const body = document.querySelector('body');
+
+        document.addEventListener('mousemove', (e) => {
+            console.log('mouse coordinates: ', e.pageX, e.pageY);
+            
+            let numberOfDots = 20;
+            if (divArray.length > numberOfDots) { //if over 20, remove the first dot
+                const removed = divArray.shift();
+                body.removeChild(removed);
+            } else {
+                let div = document.createElement('div');
+                div.className = 'trail';   //add classname for div
+                div.style.left = e.clientX + 'px'; //set coordinators
+                div.style.top = e.clientY + 'px';
+                document.body.appendChild(div);
+                divArray.push(div); //add div to array
+            }
+        }
+        );
+    </script>
+</body>
+
+</html>

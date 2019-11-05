@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Tabs</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shink-to-fit=no">
+    <style>
+    .button{
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+     }   
+
+    .button:hover {
+        background-color: rgb(255, 255, 255);
+        color: rgb(7, 0, 0);
+        border: 2px solid #555555;
+    }
+    div{
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <tab-panel>
+        <div data-tabname="one">Tab one</div>
+        <div data-tabname="two">Tab two</div>
+        <div data-tabname="three">Tab three</div>
+    </tab-panel>
+    <script>
+    'use strict';
+    const asTabs = (node) => {
+        var div = document.querySelectorAll('[data-tabname]');
+        var divs = [];
+        for (var i = 0; i < div.length; i++) {
+            divs.push(div[i]);
+        }
+    
+        var buttonList = document.createElement('div');
+        divs.forEach((div, index)=> {
+            var button = document.createElement('button');
+            var buttonText = document.createTextNode(div.dataset.tabname);
+            button.appendChild(buttonText);
+            button.classList.add('button');
+            button.addEventListener('click', () => {
+                selectTab(index);
+            });
+            buttonList.appendChild(button);
+        });
+        node.insertBefore(buttonList, node.firstChild);
+    
+        function selectTab(index) {
+            divs.forEach((div, i)=> {
+            if (index == i) {
+                div.style.display = '';
+                buttonList.childNodes[i].style.background = "black";
+            }else{ 
+                div.style.display = 'none';
+                buttonList.childNodes[i].style.background = "";
+            }
+        });
+      } 
+      
+        selectTab(0); // to initially show first tab
+    }
+   
+  asTabs(document.querySelector('tab-panel'));
+</script>
+</body>
+</html>

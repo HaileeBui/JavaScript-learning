@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Balloon</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shink-to-fit=no">
+</head>
+<body>
+    <p>&#127880;</p>
+
+    <script>
+        'use strict';
+        const balloon = document.querySelector('p');
+        let size = 50;
+
+        const resize = (e) =>{
+            e.preventDefault();
+            if(e.key === 'ArrowUp'){ // if press up arrow
+                console.log('Up');
+                size += 10;
+                if(size > 100){  //if size is over 100px, then explodes
+                    balloon.firstChild.nodeValue ='💥' ;
+	                document.removeEventListener('keydown',resize);
+                }else{
+                    balloon.style.fontSize = size + 'px'; //otherwise plus 10px
+
+                }
+            }else if(e.key === 'ArrowDown'){  //if press down arrow
+                console.log('Down');
+                size -= 10;
+                balloon.style.fontSize = size + 'px';
+            }
+        
+    };
+    document.addEventListener('keydown', resize);
+    </script>
+</body>
+</html>
